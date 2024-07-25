@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>University Search Results</title>
+</head>
+<body>
+    <h1>University Search Results</h1>
+
+    <!-- Arama Formu -->
+    <form method="GET" action="{% url 'search_universities' %}">
+        <input type="text" name="query" placeholder="Search for a university" value="{{ request.GET.query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Date Added</th>
+        </tr>
+        {% for university in results %}
+        <tr>
+            <td>{{ university.name }}</td>
+            <td><a href="{{ university.url }}">{{ university.url }}</a></td>
+            <td>{{ university.created_at }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">No universities found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
